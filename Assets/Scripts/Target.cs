@@ -23,7 +23,7 @@ public class Target : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (endPos == null) return;
         
@@ -37,8 +37,7 @@ public class Target : MonoBehaviour
         }
         else isGoingBack = !isGoingBack; 
     }
-    
-    
+
     public void OnCollisionEnter(Collision cols)
     {
         if (cols.gameObject.GetComponent<Item>() == null) return; //we only want to collide with items

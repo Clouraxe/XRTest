@@ -26,7 +26,6 @@ public class Bouncy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("BOUNCE");
         Bounce(collision);
     }
     
@@ -41,7 +40,7 @@ public class Bouncy : MonoBehaviour
 
         rb.AddForce(bounceForce, ForceMode.Impulse);
 
-        Vector3.Reflect(rb.velocity, cntNorm);
+        Vector3.Reflect(rb.linearVelocity, cntNorm);
         
         
     }
