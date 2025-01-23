@@ -57,7 +57,4 @@
         "Temp/": true
     },
     "dotnet.defaultSolution": "My project.sln",
-    "files.associations": {
-        "cs": "cs"
-    }
 }
