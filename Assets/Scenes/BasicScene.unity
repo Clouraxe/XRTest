@@ -4818,14 +4818,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boomerang
       objectReference: {fileID: 0}
-    - target: {fileID: 4673240423595042205, guid: 0e8e7ebc79c20ec4db4efefb19d40992, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4673240423595042205, guid: 0e8e7ebc79c20ec4db4efefb19d40992, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5603661379917257897, guid: 0e8e7ebc79c20ec4db4efefb19d40992, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.756
@@ -4869,38 +4861,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2204446557000059162, guid: 0e8e7ebc79c20ec4db4efefb19d40992, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2030864091}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8e7ebc79c20ec4db4efefb19d40992, type: 3}
---- !u!1 &2030864090 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2204446557000059162, guid: 0e8e7ebc79c20ec4db4efefb19d40992, type: 3}
-  m_PrefabInstance: {fileID: 2030864089}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2030864091
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2030864090}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e62fd6167feaa2f4690de18daf875c1c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2068127093
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class Boomerang : Item
         {
             _rb.AddForce(0.75f * _rb.mass * -Physics.gravity);
             Vector3 forceDirection = Vector3.Cross(_rb.linearVelocity.normalized, transform.forward);
-            _rb.AddForce(forceDirection * 10f, ForceMode.Impulse);
+            _rb.AddForce(forceDirection * 2, ForceMode.Impulse);
             Debug.Log("force is " + forceDirection + " and pos is " + transform.position);
             Debug.DrawLine(transform.position, transform.position + (forceDirection * 10f), Color.green, 1f);
         }
@@ -52,10 +52,10 @@ public class Boomerang : Item
     {
         Debug.Log("boomarang is speed of " + _rb.linearVelocity + " with mag of " + _rb.linearVelocity.magnitude);
 
-        if (_rb.linearVelocity.magnitude < 5) return;
+        if (_rb.linearVelocity.magnitude < 3) return;
 
         Debug.Log("thrown the rang");
-        _rb.AddRelativeForce(Vector3.one * 10f, ForceMode.Impulse);
+        _rb.AddRelativeForce(Vector3.one * 10f, ForceMode.Impulse); //Make the force stronger
         IsSpinning = true;
 
         // CreateCircularPath(rb);
