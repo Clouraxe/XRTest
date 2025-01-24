@@ -6,12 +6,12 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
 
-    protected Rigidbody rb;
+    protected Rigidbody _rb;
 
     protected virtual void OnStart(){}
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         OnStart();
     }
 

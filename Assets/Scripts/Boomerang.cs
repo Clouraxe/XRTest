@@ -6,22 +6,15 @@ using UnityEngine;
 
 public class Boomerang : Item
 {
-
+    
 
     private bool isSpinning = false;
     private bool IsSpinning
     {
         set
         {
+            OnSpin(value);
             isSpinning = value;
-            if (value)
-            {
-                rb.mass = 0.5f;
-            }
-            else
-            {
-                rb.mass = ogMass;
-            }
         }
         get
         {
@@ -30,11 +23,14 @@ public class Boomerang : Item
     } //After thrown needs a force that is perpandicular to the velocity and needs 
 
     private float ogMass;
+    private Animator _animator;
 
     protected override void OnStart()
     {
         
-        ogMass = rb.mass;
+        ogMass = _rb.mass;
+        _animator = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -42,11 +38,11 @@ public class Boomerang : Item
     {
         if (IsSpinning)
         {
-            rb.AddRelativeTorque(0, 0, 20, ForceMode.Impulse);
-            rb.AddForce(0.75f * rb.mass * -Physics.gravity);
-            Vector3 forceDirection = Vector3.Cross(rb.linearVelocity.normalized, transform.forward);
-            rb.AddForce(forceDirection * 10f, ForceMode.Force);
-            Debug.DrawLine(transform.position, transform.position + forceDirection * 10f, Color.green, 1f);
+            _rb.AddForce(0.75f * _rb.mass * -Physics.gravity);
+            Vector3 forceDirection = Vector3.Cross(_rb.linearVelocity.normalized, transform.forward);
+            _rb.AddForce(forceDirection * 10f, ForceMode.Impulse);
+            Debug.Log("force is " + forceDirection + " and pos is " + transform.position);
+            Debug.DrawLine(transform.position, transform.position + (forceDirection * 10f), Color.green, 1f);
         }
     }
 
@@ -54,19 +50,31 @@ public class Boomerang : Item
     // spin logic for the boomerangs
     public void OnBoomerangUnselected()
     {
-        Debug.Log("boomarang is speed of " + rb.linearVelocity + " with mag of " + rb.linearVelocity.magnitude);
+        Debug.Log("boomarang is speed of " + _rb.linearVelocity + " with mag of " + _rb.linearVelocity.magnitude);
 
-        if (rb.linearVelocity.magnitude < 5) return;
+        if (_rb.linearVelocity.magnitude < 5) return;
 
         Debug.Log("thrown the rang");
-        rb.AddRelativeForce(Vector3.one * 10f, ForceMode.Impulse);
-        rb.AddRelativeTorque(0, 0, 20000f, ForceMode.Force);
+        _rb.AddRelativeForce(Vector3.one * 10f, ForceMode.Impulse);
         IsSpinning = true;
 
         // CreateCircularPath(rb);
 
 
 
+    }
+
+    public void OnSpin(bool on)
+    {
+        if (on) {
+            _rb.mass = 0.5f;
+            _animator.SetBool("isSpinning", true);
+
+        } else {
+            _rb.mass = ogMass;
+            _animator.SetBool("isSpinning", false);
+        }
+        
     }
 
 
