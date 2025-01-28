@@ -25,7 +25,7 @@ public class ItemSpawner : MonoBehaviour
         var selector = interact.firstInteractorSelecting;
         interact.interactionManager.CancelInteractableSelection((IXRSelectInteractable)interact);
         
-        var itm = Instantiate(spawnItem, this.transform.position + new Vector3(0, 0.1f , 0), spawnItem.transform.rotation, null);
+        var itm = Instantiate(spawnItem, selector.transform.position, spawnItem.transform.rotation, null);
 
         interact.interactionManager.SelectEnter(selector, itm.GetComponent<XRGrabInteractable>());
     }
