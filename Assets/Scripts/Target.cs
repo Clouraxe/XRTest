@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,6 +12,8 @@ public class Target : MonoBehaviour
     private Vector3 startPos;
     private Vector3 endPos;
     private bool isGoingBack = false;
+
+    public event Action OnPop;
     
     // Start is called before the first frame update
     void Start()
@@ -40,6 +43,7 @@ public class Target : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {        
-        Destroy(this.gameObject);
+        OnPop?.Invoke();
+        Destroy(gameObject);
     }
 }
