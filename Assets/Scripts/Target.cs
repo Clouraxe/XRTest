@@ -38,12 +38,8 @@ public class Target : MonoBehaviour
         else isGoingBack = !isGoingBack; 
     }
 
-    public void OnCollisionEnter(Collision cols)
-    {
-        if (cols.gameObject.GetComponent<Item>() == null) return; //we only want to collide with items
-        
-        Debug.Log("boom");
-
-        Destroy(this);
+    public void OnTriggerEnter(Collider other)
+    {        
+        Destroy(this.gameObject);
     }
 }
