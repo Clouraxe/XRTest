@@ -11,7 +11,7 @@ public class Bow : Item
     private bool isGrabbing;
     private Rigidbody arrow;
 
-    private readonly float ARROW_REST_X = -0.26f;
+    private readonly float ARROW_REST_Z = 0.25f;
 
     // Update is called once per frame
     void Update()
@@ -21,10 +21,10 @@ public class Bow : Item
             var grabPoint = _grabInteract.interactorsSelecting[1].transform.position;
             Vector3 grabLocal = transform.InverseTransformPoint(grabPoint);
             Vector3 linePointPos = _bowLine.GetPosition(1);
-            float newX = Mathf.Clamp(grabLocal.x, 0, 0.25f);
-            _bowLine.SetPosition(1, new(newX, linePointPos.y, linePointPos.z));   
+            float newZ = Mathf.Clamp(grabLocal.z, -0.25f, 0);
+            _bowLine.SetPosition(1, new(linePointPos.x, linePointPos.y, newZ));   
             var arrowPos = arrow.transform.localPosition;
-            arrow.transform.localPosition = new(ARROW_REST_X + newX, arrowPos.y, arrowPos.z);     
+            arrow.transform.localPosition = new(arrowPos.x, arrowPos.y, newZ + ARROW_REST_Z);     
         } 
     }
 
@@ -35,7 +35,7 @@ public class Bow : Item
 
         if (arrow == null) {
             arrow = Instantiate(_arrowPrefab, transform).GetComponent<Rigidbody>();
-            arrow.transform.localPosition = new(ARROW_REST_X, 0, 0);
+            arrow.transform.localPosition = new(0, 0, ARROW_REST_Z);
             arrow.useGravity = false;
         }
         isGrabbing = true;
@@ -45,11 +45,11 @@ public class Bow : Item
 
         isGrabbing = false;
         Vector3 linePointPos = _bowLine.GetPosition(1);
-        _bowLine.SetPosition(1, new(0, linePointPos.y, linePointPos.z));
+        _bowLine.SetPosition(1, new(linePointPos.x, linePointPos.y, 0));
 
         if (arrow == null) return;
         
-        if (linePointPos.x == 0) {
+        if (linePointPos.z == 0) {
             Destroy(arrow);
             arrow = null;
             return;
@@ -57,8 +57,8 @@ public class Bow : Item
 
         //now to calculate the speed
         arrow.transform.SetParent(null);
-        arrow.linearVelocity = 100f * linePointPos.x * arrow.transform.forward;
-        arrow.transform.GetChild(0).eulerAngles = arrow.linearVelocity;
+        arrow.linearVelocity = 100f * -linePointPos.z * arrow.transform.forward;
+        // arrow.transform.GetChild(0).eulerAngles = arrow.linearVelocity;
         arrow.GetComponent<Rigidbody>().useGravity = true;
         arrow.GetComponent<Arrow>().SetFlying(true);
         arrow = null;
