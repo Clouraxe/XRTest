@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
@@ -19,11 +17,7 @@ public class Arrow : MonoBehaviour
     void Update()
     {
         if (isFlying) {
-            // Debug.DrawLine(transform.position, transform.position + _rb.linearVelocity, Color.blue, 10f);
-            // Debug.DrawLine(transform.position, transform.position + transform.GetChild(0).eulerAngles, Color.red, 10f);
-            // Debug.Log(_rb.linearVelocity);
             transform.LookAt(transform.position +_rb.linearVelocity );
-            // Debug.DebugBreak();
         }
     }
 
@@ -32,5 +26,24 @@ public class Arrow : MonoBehaviour
     public void SetFlying(bool val)
     {
         isFlying = val;
+    }
+
+    void OnCollisionEnter(Collision cols)
+    {
+        
+        if (cols.gameObject.GetComponent<Target>() == null)
+        {
+            isFlying = false;
+            _rb.useGravity = false;
+            _rb.maxAngularVelocity = 0;
+            _rb.maxLinearVelocity = 0;
+            Invoke(nameof(DestroyArrow), 3f);
+        }
+    }
+
+
+    private void DestroyArrow()
+    {
+        Destroy(this.gameObject);
     }
 }
