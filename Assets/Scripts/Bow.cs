@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -49,8 +50,8 @@ public class Bow : Item
 
         if (arrow == null) return;
         
-        if (linePointPos.z == 0) {
-            Destroy(arrow);
+        if (Mathf.Abs(linePointPos.z) <= 0.01f) {
+            Destroy(arrow.gameObject);
             arrow = null;
             return;
         }
@@ -58,7 +59,6 @@ public class Bow : Item
         //now to calculate the speed
         arrow.transform.SetParent(null);
         arrow.linearVelocity = 100f * -linePointPos.z * arrow.transform.forward;
-        // arrow.transform.GetChild(0).eulerAngles = arrow.linearVelocity;
         arrow.GetComponent<Rigidbody>().useGravity = true;
         arrow.GetComponent<Arrow>().SetFlying(true);
         arrow = null;
