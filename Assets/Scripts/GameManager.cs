@@ -1,4 +1,7 @@
+using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +31,20 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("pop goes the weasel");
         targetsLeft--;
-
-        if (targetsLeft == 0) Debug.Log("yippie!!");
+        
+        // Finished the level!
+        if (targetsLeft == 0) {
+            string sceneName = SceneManager.GetActiveScene().name;
+            int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
+            string nextLvlName = "Level " + (lvl + 1);
+            
+            try {
+                SceneManager.LoadScene(nextLvlName);
+            } 
+            catch (Exception) 
+            {
+                Debug.Log("I guess we ran out bucko");
+            }
+        } 
     }
 }
