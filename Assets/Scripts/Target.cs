@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework.Api;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.XR.Interaction.Toolkit.Inputs;
+
 
 public class Target : MonoBehaviour
 {
@@ -21,7 +16,6 @@ public class Target : MonoBehaviour
 
     [Header("Circle Movement")]
     [SerializeField] private Axis circleAround; //For circular motion
-    [SerializeField] private float circleRadius;
 
     private Vector3 startPos;
     private Vector3 endPos;
@@ -79,25 +73,26 @@ public class Target : MonoBehaviour
     
     private void MoveCircle()
     {
-        Vector3 newPos = transform.position;
+        Vector3 newPos = endPos;
+        var radius = Mathf.Abs((endPos - startPos).magnitude);
         float x, y, z;
         switch(circleAround) {
             case Axis.X:
-                y = startPos.y + Mathf.Cos(Time.time * speed) * circleRadius;
-                z = startPos.z + Mathf.Sin(Time.time * speed) * circleRadius;
-                newPos = new(startPos.x, y, z);
+                y = endPos.y + Mathf.Cos(Time.time * speed) * radius;
+                z = endPos.z + Mathf.Sin(Time.time * speed) * radius;
+                newPos = new(endPos.x, y, z);
                 break;
             
             case Axis.Y:
-                x = startPos.x + Mathf.Cos(Time.time * speed) * circleRadius;
-                z = startPos.z + Mathf.Sin(Time.time * speed) * circleRadius;
-                newPos = new(x, startPos.y, z);
+                x = endPos.x + Mathf.Cos(Time.time * speed) * radius;
+                z = endPos.z + Mathf.Sin(Time.time * speed) * radius;
+                newPos = new(x, endPos.y, z);
                 break;
                 
             case Axis.Z:
-                x =  startPos.x + Mathf.Cos(Time.time * speed) * circleRadius;
-                y =  startPos.y + Mathf.Sin(Time.time * speed) * circleRadius;
-                newPos = new(x, y, startPos.z);
+                x =  endPos.x + Mathf.Cos(Time.time * speed) * radius;
+                y =  endPos.y + Mathf.Sin(Time.time * speed) * radius;
+                newPos = new(x, y, endPos.z);
                 break;
                 
             default:
