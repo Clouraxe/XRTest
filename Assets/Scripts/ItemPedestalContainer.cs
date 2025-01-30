@@ -64,7 +64,7 @@ public class ItemPedestalContainer : MonoBehaviour
         if (obj.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.useGravity = on;
-            rb.detectCollisions = on;
+            rb.isKinematic = !on;
         } 
     }
 }

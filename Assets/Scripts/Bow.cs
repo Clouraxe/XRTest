@@ -12,7 +12,7 @@ public class Bow : Item
     private bool isGrabbing;
     private Rigidbody arrow;
 
-    private readonly float ARROW_REST_Z = 0.25f;
+    private readonly float ARROW_REST_Z = 0.15f;
 
     // Update is called once per frame
     void Update()
