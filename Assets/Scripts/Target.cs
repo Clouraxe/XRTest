@@ -50,8 +50,15 @@ public class Target : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Item>() == null) return;
+        GetComponent<AudioSource>().Play();
         
         OnPop?.Invoke();
+        GetComponent<MeshRenderer>().enabled = false;
+        Invoke(nameof(DestroyObj), 1f);
+    }
+
+    private void DestroyObj()
+    {
         Destroy(gameObject);
     }
     

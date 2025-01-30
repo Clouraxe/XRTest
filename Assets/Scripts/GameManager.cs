@@ -34,7 +34,17 @@ public class GameManager : MonoBehaviour
         
         // Finished the level!
         if (targetsLeft == 0) {
-            string sceneName = SceneManager.GetActiveScene().name;
+            Invoke(nameof(PlayLevelCompleteSound), 1f);
+            Invoke(nameof(GoToNextLevel), 3f);
+        } 
+    }
+
+    private void PlayLevelCompleteSound() => GetComponent<AudioSource>().Play();
+
+
+    private void GoToNextLevel()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
             int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
             string nextLvlName = "Level " + (lvl + 1);
             
@@ -45,6 +55,5 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("I guess we ran out bucko");
             }
-        } 
     }
 }

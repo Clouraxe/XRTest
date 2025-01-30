@@ -38,6 +38,9 @@ public class Arrow : MonoBehaviour
             _rb.maxAngularVelocity = 0;
             _rb.maxLinearVelocity = 0;
             Invoke(nameof(DestroyArrow), 3f);
+
+            var audios = GetComponent<AudioSource>();
+            audios.Play();
         }
     }
 

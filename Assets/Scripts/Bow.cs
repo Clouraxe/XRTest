@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Bow : Item
@@ -8,6 +9,8 @@ public class Bow : Item
     [SerializeField] private LineRenderer _bowLine;
     [SerializeField] private XRGrabInteractable _grabInteract;
     [SerializeField] private GameObject _arrowPrefab;
+
+    [SerializeField] private AudioResource _releaseSound;
 
     private bool isGrabbing;
     private Rigidbody arrow;
@@ -63,7 +66,10 @@ public class Bow : Item
         arrow.GetComponent<Arrow>().SetFlying(true);
         arrow = null;
 
-
+        //Play the sound
+        var audios = GetComponent<AudioSource>();
+        audios.resource = _releaseSound;
+        audios.Play();
         
     } 
 
