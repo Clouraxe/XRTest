@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         targetsLeft = targets.Length;
 
         // Keep track of targets
-        foreach (GameObject go in _targets) {
+        foreach (Transform go in _targets) {
             var t = go.GetComponent<Target>();
             t.OnPop += OnTargetPopped;
         }

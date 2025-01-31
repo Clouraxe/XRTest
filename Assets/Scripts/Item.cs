@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
 {
 
     protected Rigidbody _rb;
+    [SerializeField] protected Collider col;
 
     protected virtual void OnStart(){}
     private void Start()
@@ -21,4 +22,13 @@ public class Item : MonoBehaviour
     {
         
     }
+
+
+    void OnCollisionEnter(Collision cols)
+    {
+        if (cols.gameObject.layer == LayerMask.NameToLayer("Stage")) Invoke(nameof(DestroyObject), 3f);
+    }
+
+
+    private void DestroyObject() => Destroy(gameObject);
 }
