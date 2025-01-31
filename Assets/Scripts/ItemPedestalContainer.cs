@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class ItemPedestalContainer : MonoBehaviour
     [SerializeField] private float height = 0.05f;
     [SerializeField] private float restockTime = 3f;
     private float startY;
+
+    public event Action OnItemRemoved;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,6 +41,9 @@ public class ItemPedestalContainer : MonoBehaviour
 
             TogglePhysics(item, true);
             Invoke(nameof(RespawnItem), restockTime);
+
+            //Starts timer
+            OnItemRemoved?.Invoke();
         }
     }
     

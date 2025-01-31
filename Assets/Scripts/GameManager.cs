@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,15 +9,29 @@ public class GameManager : MonoBehaviour
 
     private int targetsLeft = -1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField] private Stopwatch _stopWatch;
+    [SerializeField] private Transform _tools;
     void Start()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
 
         targetsLeft = targets.Length;
 
+        // Keep track of targets
         foreach (GameObject go in targets) {
             var t = go.GetComponent<Target>();
             t.OnPop += OnTargetPopped;
+        }
+
+        // Keep track of items removed from pedestals (for stopwatch)
+        for (int i = 0; i < _tools.childCount; i++) {
+            var obj = _tools.GetChild(i);
+            if (obj.childCount < 1) continue;
+
+            if (obj.GetChild(0).TryGetComponent<ItemPedestalContainer>(out var itemPedestalContainer)) {
+                    itemPedestalContainer.OnItemRemoved += StartTimer;
+            }
         }
     }
 
@@ -34,12 +49,16 @@ public class GameManager : MonoBehaviour
         
         // Finished the level!
         if (targetsLeft == 0) {
+            _stopWatch.StopTimer();
+            Debug.Log($"You finished {SceneManager.GetActiveScene().name} in {_stopWatch.GetTimeString()}!");
             Invoke(nameof(PlayLevelCompleteSound), 1f);
             Invoke(nameof(GoToNextLevel), 3f);
         } 
     }
 
     private void PlayLevelCompleteSound() => GetComponent<AudioSource>().Play();
+
+    public void StartTimer() => _stopWatch.StartTimer();
 
 
     private void GoToNextLevel()
