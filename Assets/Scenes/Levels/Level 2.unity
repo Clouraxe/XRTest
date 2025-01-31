@@ -2039,6 +2039,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1338478357}
     - target: {fileID: 1923684373721715907, guid: 8dca9d4ef514b954f91ac6c72c6da8b1, type: 3}
+      propertyPath: _targets
+      value: 
+      objectReference: {fileID: 468005816}
+    - target: {fileID: 1923684373721715907, guid: 8dca9d4ef514b954f91ac6c72c6da8b1, type: 3}
       propertyPath: _stopWatch
       value: 
       objectReference: {fileID: 1670695548}

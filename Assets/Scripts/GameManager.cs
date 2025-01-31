@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Stopwatch _stopWatch;
     [SerializeField] private Transform _tools;
+    [SerializeField] private Transform _targets;
     void Start()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
@@ -19,14 +20,13 @@ public class GameManager : MonoBehaviour
         targetsLeft = targets.Length;
 
         // Keep track of targets
-        foreach (GameObject go in targets) {
+        foreach (GameObject go in _targets) {
             var t = go.GetComponent<Target>();
             t.OnPop += OnTargetPopped;
         }
 
         // Keep track of items removed from pedestals (for stopwatch)
-        for (int i = 0; i < _tools.childCount; i++) {
-            var obj = _tools.GetChild(i);
+        foreach (Transform obj in _tools) {
             if (obj.childCount < 1) continue;
 
             if (obj.GetChild(0).TryGetComponent<ItemPedestalContainer>(out var itemPedestalContainer)) {
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public void OnTargetPopped()
     {
         Debug.Log("pop goes the weasel");
-        targetsLeft--;
+        targetsLeft = _targets.childCount - 1; // minus one because the targets doesn't get destroyed instantly.
         
         // Finished the level!
         if (targetsLeft == 0) {
