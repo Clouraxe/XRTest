@@ -38,8 +38,10 @@ public class Bow : Item
         if (_grabInteract.interactorsSelecting.Count < 2) return;
 
         if (arrow == null) {
-            arrow = Instantiate(_arrowPrefab, transform).GetComponent<Rigidbody>();
+            arrow = Pooler<Arrow>.Instance.Initiate(_arrowPrefab, 3, 6).Get().GetComponent<Rigidbody>();
+            arrow.transform.SetParent(transform);
             arrow.transform.localPosition = new(0, 0, ARROW_REST_Z);
+            arrow.transform.localEulerAngles = Vector3.zero;
             arrow.useGravity = false;
         }
         isGrabbing = true;
@@ -54,7 +56,7 @@ public class Bow : Item
         if (arrow == null) return;
         
         if (Mathf.Abs(linePointPos.z) <= 0.01f) {
-            Destroy(arrow.gameObject);
+            Pooler<Arrow>.Instance.ReleaseToPool(arrow.GetComponent<Arrow>());
             arrow = null;
             return;
         }

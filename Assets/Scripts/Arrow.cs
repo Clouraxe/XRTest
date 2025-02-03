@@ -7,11 +7,7 @@ public class Arrow : MonoBehaviour
 
     private bool isFlying = false;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -47,6 +43,6 @@ public class Arrow : MonoBehaviour
 
     private void DestroyArrow()
     {
-        Destroy(this.gameObject);
+        Pooler<Arrow>.Instance._objPool.Release(this);
     }
 }
