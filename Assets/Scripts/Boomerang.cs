@@ -21,6 +21,12 @@ public class Boomerang : Item
 
     private Vector3 throwTargetPos;
     private Vector3 throwSourcePos;
+    private Vector3 throwMidPoint;
+    private float throwStartAngle;
+    private float throwSpeed = 1f;
+    private float throwTime = 0f;
+    private float throwRadius;
+    private bool isArcing = false;
 
     private Animator _animator;
 
@@ -35,17 +41,28 @@ public class Boomerang : Item
     
     void FixedUpdate()
     {
-        if (IsSpinning) {
-            Debug.DrawLine(transform.position, transform.position + _rb.linearVelocity.normalized, Color.cyan, 15f);
-            Debug.DrawLine(transform.position, throwTargetPos, Color.green, 15f);
+        if (isArcing) {
+            throwTime += Time.deltaTime;
+            // Debug.DrawLine(transform.position, transform.position + _rb.linearVelocity.normalized, Color.cyan, 15f);
+            // Debug.DrawLine(transform.position, throwTargetPos, Color.green, 15f);
 
-            var mag = _rb.linearVelocity.magnitude;
-            _rb.linearVelocity += 0.35f * mag * (throwTargetPos - transform.position).normalized;
-            _rb.linearVelocity = _rb.linearVelocity.normalized * mag;
+            // var mag = _rb.linearVelocity.magnitude;
+            // _rb.linearVelocity += 0.35f * mag * (throwTargetPos - transform.position).normalized;
+            // _rb.linearVelocity = _rb.linearVelocity.normalized * mag;
 
-            Debug.Log("the previous velo is " + mag);
-            Debug.Log("the unchanged velo is " + _rb.linearVelocity.magnitude);
+            // Debug.Log("the previous velo is " + mag);
+            // Debug.Log("the unchanged velo is " + _rb.linearVelocity.magnitude);
 
+            Debug.DrawLine(transform.position, throwMidPoint, Color.red, 5f);
+            
+            
+
+            float z = throwMidPoint.z + Mathf.Cos((throwTime + throwStartAngle) * throwSpeed) * throwRadius;
+            float x = throwMidPoint.x + Mathf.Sin((throwTime + throwStartAngle) * throwSpeed) * throwRadius;
+
+
+            transform.localPosition = new(x, transform.localPosition.y, z);
+            Debug.DebugBreak();
         }
     }
 
@@ -58,17 +75,32 @@ public class Boomerang : Item
         if (_rb.linearVelocity.magnitude < 3) return;
 
         Debug.Log("thrown the rang");
+        IsSpinning = true;
            
 
         throwSourcePos = Camera.main.transform.position;
         throwTargetPos = throwSourcePos + _rb.linearVelocity.magnitude * 2.5f * Camera.main.transform.forward;
-        Debug.DrawLine(Camera.main.transform.position, throwTargetPos, Color.yellow, 10f);
-        
-        _rb.linearVelocity.Scale(new(0,1,1));
-        _rb.linearVelocity *= 0.15f;
-        IsSpinning = true;
+        throwMidPoint = throwSourcePos + (throwTargetPos - throwSourcePos) / 2f;
+        throwRadius = Vector3.Distance(throwSourcePos, throwTargetPos) / 2.0f;
+        throwTime = 0f;
+        Debug.DrawLine(throwSourcePos, throwTargetPos, Color.yellow, 10f);
+        Debug.DrawLine(throwSourcePos, throwMidPoint, Color.cyan, 5f);
+
+        GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = throwMidPoint;
+
+        transform.eulerAngles = new(transform.eulerAngles.x, transform.eulerAngles.y, (int)(transform.eulerAngles.z / 15) * 15);
+        _rb.maxAngularVelocity = 0;
+        // _rb.linearVelocity.Scale(new(0,1,1));
+        // _rb.linearVelocity *= 0.15f;
+        Invoke(nameof(StartArc), 1f);
     }
 
+    private void StartArc()
+    {
+        isArcing = true;
+        _rb.linearVelocity = Vector3.zero;
+        throwStartAngle = Mathf.Asin((transform.localPosition.z - throwMidPoint.z) / throwRadius) / throwSpeed;
+    }
     public void OnSpin(bool on)
     {
         if (on) {
@@ -79,6 +111,7 @@ public class Boomerang : Item
         } else {
             _animator.SetBool("isSpinning", false);
             _rb.useGravity = true;
+            isArcing = false;
         }
         
     }
