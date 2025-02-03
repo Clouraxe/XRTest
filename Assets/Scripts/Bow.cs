@@ -32,13 +32,19 @@ public class Bow : Item
         } 
     }
 
+    protected override void OnStart()
+    {
+        //Makes an arrow pool instance 
+        Pooler<Arrow>.Instance.Initiate(_arrowPrefab, 3, 6);
+    }
+
 
 
     public void OnBowSelect() {
         if (_grabInteract.interactorsSelecting.Count < 2) return;
 
         if (arrow == null) {
-            arrow = Pooler<Arrow>.Instance.Initiate(_arrowPrefab, 3, 6).Get().GetComponent<Rigidbody>();
+            arrow = Pooler<Arrow>.Instance.Get().GetComponent<Rigidbody>();
             arrow.transform.SetParent(transform);
             arrow.transform.localPosition = new(0, 0, ARROW_REST_Z);
             arrow.transform.localEulerAngles = Vector3.zero;
@@ -56,7 +62,7 @@ public class Bow : Item
         if (arrow == null) return;
         
         if (Mathf.Abs(linePointPos.z) <= 0.01f) {
-            Pooler<Arrow>.Instance.ReleaseToPool(arrow.GetComponent<Arrow>());
+            Pooler<Arrow>.Instance.Release(arrow.GetComponent<Arrow>());
             arrow = null;
             return;
         }

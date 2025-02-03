@@ -43,6 +43,6 @@ public class Arrow : MonoBehaviour
 
     private void DestroyArrow()
     {
-        Pooler<Arrow>.Instance._objPool.Release(this);
+        Pooler<Arrow>.Instance.Release(this);
     }
 }
