@@ -11,7 +11,7 @@ public class Bow : Item
     [SerializeField] private XRGrabInteractable _grabInteract;
     [SerializeField] private GameObject _arrowPrefab;
     [SerializeField] private AudioResource _releaseSound;
-    [SerializeField] private bool _instantBowPull = false;
+    [SerializeField] private bool _instantBowPull = true;
     
     private Quiver quiver; 
 
@@ -103,6 +103,7 @@ public class Bow : Item
         Debug.Log("Arrow attached");
         arrow = arr.GetComponent<Rigidbody>();
         var arrInteract = arr.GetComponent<XRGrabInteractable>();
+        var selector = arrInteract.firstInteractorSelecting;
         arrInteract.interactionManager.CancelInteractableSelection((IXRSelectInteractable)arrInteract);
 
         arr.transform.SetParent(transform);
@@ -112,7 +113,7 @@ public class Bow : Item
         arrow.useGravity = false;
 
         if (_instantBowPull) {
-
+            _grabInteract.interactionManager.SelectEnter(selector, _grabInteract);
         }
 
         arrInteract.enabled = false;
