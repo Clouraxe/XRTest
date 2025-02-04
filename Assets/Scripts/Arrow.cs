@@ -29,7 +29,7 @@ public class Arrow : MonoBehaviour
         
         if (cols.gameObject.GetComponent<Target>() == null)
         {
-            isFlying = false;
+            SetFlying(false);
             _rb.useGravity = false;
             _rb.maxAngularVelocity = 0;
             _rb.maxLinearVelocity = 0;

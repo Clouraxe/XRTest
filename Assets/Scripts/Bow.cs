@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class Bow : Item
 {
@@ -9,10 +10,13 @@ public class Bow : Item
     [SerializeField] private LineRenderer _bowLine;
     [SerializeField] private XRGrabInteractable _grabInteract;
     [SerializeField] private GameObject _arrowPrefab;
-
     [SerializeField] private AudioResource _releaseSound;
+    
+    private Quiver quiver; 
 
-    private bool isGrabbing;
+    private bool isBowScndGrab;
+    private bool isArrowAttached = false;
+    private Vector3 grab2StartPointLocal;
     private Rigidbody arrow;
 
     private readonly float ARROW_REST_Z = 0.15f;
@@ -20,52 +24,59 @@ public class Bow : Item
     // Update is called once per frame
     void Update()
     {
-        if (isGrabbing) {
-            //Find the point where the grab is happening
+        if (isArrowAttached && isBowScndGrab) {
             var grabPoint = _grabInteract.interactorsSelecting[1].transform.position;
             Vector3 grabLocal = transform.InverseTransformPoint(grabPoint);
+            Vector3 grabLocalDiff = grabLocal - grab2StartPointLocal;
             Vector3 linePointPos = _bowLine.GetPosition(1);
-            float newZ = Mathf.Clamp(grabLocal.z, -0.25f, 0);
+            float newZ = Mathf.Clamp(grabLocalDiff.z, -0.25f, 0);
             _bowLine.SetPosition(1, new(linePointPos.x, linePointPos.y, newZ));   
             var arrowPos = arrow.transform.localPosition;
-            arrow.transform.localPosition = new(arrowPos.x, arrowPos.y, newZ + ARROW_REST_Z);     
-        } 
+            arrow.transform.localPosition = new(arrowPos.x, arrowPos.y, newZ + ARROW_REST_Z);  
+        }
+
     }
 
     protected override void OnStart()
     {
         //Makes an arrow pool instance 
         Pooler<Arrow>.Instance.Initiate(_arrowPrefab, 3, 6);
+
+        //Get quiver reference
+        quiver = Camera.main.transform.GetComponentInChildren<Quiver>(true);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<XRDirectInteractor>(out var interactor)) {
+            if (arrow == null && (interactor.firstInteractableSelected?.transform.TryGetComponent<Arrow>(out var arr) ?? false))
+
+                AttachArrow(arr);
+        }
     }
 
 
+    public void OnBowFirstSelect()
+    {
+        quiver.gameObject.SetActive(true);
+    }
 
-    public void OnBowSelect() {
+    public void OnBowSelect() 
+    {
         if (_grabInteract.interactorsSelecting.Count < 2) return;
 
-        if (arrow == null) {
-            arrow = Pooler<Arrow>.Instance.Get().GetComponent<Rigidbody>();
-            arrow.transform.SetParent(transform);
-            arrow.transform.localPosition = new(0, 0, ARROW_REST_Z);
-            arrow.transform.localEulerAngles = Vector3.zero;
-            arrow.useGravity = false;
-        }
-        isGrabbing = true;
+        isBowScndGrab = true;
+        grab2StartPointLocal = transform.InverseTransformPoint(_grabInteract.interactorsSelecting[1].transform.position);
     } 
     public void OnBowDeselect() {
         if (_grabInteract.interactorsSelecting.Count != 1) return;
-
-        isGrabbing = false;
-        Vector3 linePointPos = _bowLine.GetPosition(1);
-        _bowLine.SetPosition(1, new(linePointPos.x, linePointPos.y, 0));
-
         if (arrow == null) return;
         
-        if (Mathf.Abs(linePointPos.z) <= 0.01f) {
-            Pooler<Arrow>.Instance.Release(arrow.GetComponent<Arrow>());
-            arrow = null;
-            return;
-        }
+        // Released one, the other is still grabbing
+        isBowScndGrab = false;
+        isArrowAttached = false;
+        Vector3 linePointPos = _bowLine.GetPosition(1);
+        _bowLine.SetPosition(1, new(linePointPos.x, linePointPos.y, 0));
 
         //now to calculate the speed
         arrow.transform.SetParent(null);
@@ -79,7 +90,29 @@ public class Bow : Item
         audios.resource = _releaseSound;
         audios.Play();
         
-    } 
+    }
+
+    public void OnBowLastDeselect() 
+    {
+        quiver.gameObject.SetActive(false);
+    }
+
+    private void AttachArrow(Arrow arr)
+    {
+        Debug.Log("Arrow attached");
+        arrow = arr.GetComponent<Rigidbody>();
+        var arrInteract = arr.GetComponent<XRGrabInteractable>();
+        arrInteract.interactionManager.CancelInteractableSelection((IXRSelectInteractable)arrInteract);
+
+        arr.transform.SetParent(transform);
+        arr.transform.SetLocalPositionAndRotation(new Vector3(0,0, ARROW_REST_Z), Quaternion.identity);
+        arrow.linearVelocity = Vector3.zero;
+        arrow.angularVelocity = Vector3.zero;
+        arrow.useGravity = false;
+
+        arrInteract.enabled = false;
+        isArrowAttached = true;
+    }
 
 
     
