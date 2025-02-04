@@ -62,7 +62,7 @@ public class Target : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Item>() == null) return;
+        if (other.GetComponent<Item>() == null && other.GetComponent<Arrow>() == null) return;
         GetComponent<AudioSource>().Play();
         
         OnPop?.Invoke();

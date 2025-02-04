@@ -11,6 +11,7 @@ public class Bow : Item
     [SerializeField] private XRGrabInteractable _grabInteract;
     [SerializeField] private GameObject _arrowPrefab;
     [SerializeField] private AudioResource _releaseSound;
+    [SerializeField] private bool _instantBowPull = false;
     
     private Quiver quiver; 
 
@@ -109,6 +110,10 @@ public class Bow : Item
         arrow.linearVelocity = Vector3.zero;
         arrow.angularVelocity = Vector3.zero;
         arrow.useGravity = false;
+
+        if (_instantBowPull) {
+
+        }
 
         arrInteract.enabled = false;
         isArrowAttached = true;
