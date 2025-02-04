@@ -24,11 +24,11 @@ public class Item : MonoBehaviour
     }
 
 
-    // void OnCollisionEnter(Collision cols)
-    // {
-    //     if (cols.gameObject.layer == LayerMask.NameToLayer("Stage")) Invoke(nameof(DestroyObject), 3f);
-    // }
+    void OnCollisionEnter(Collision cols)
+    {
+        if (cols.gameObject.layer == LayerMask.NameToLayer("Stage")) Invoke(nameof(DestroyObject), 3f);
+    }
 
 
-    // private void DestroyObject() => Destroy(gameObject);
+    private void DestroyObject() => Destroy(gameObject);
 }
