@@ -7,9 +7,10 @@ public class Target : MonoBehaviour
 {
     public enum MoveType {
         Default,
-        Circular
+        Circular,
+        Multi
     }
-    
+
     [SerializeField] private Transform endPoint;
     [SerializeField] private float speed = 5f;
     [SerializeField] private MoveType moveType;
@@ -20,6 +21,7 @@ public class Target : MonoBehaviour
     private Vector3 startPos;
     private Vector3 endPos;
     private bool isGoingBack = false;
+    private int multiCurrentIndex = 0; //The current child the target is moving to (multi point)
 
     public event Action OnPop;
     
@@ -29,7 +31,14 @@ public class Target : MonoBehaviour
         startPos = transform.position;
         if (endPoint != null) {
             endPos = endPoint.transform.position;
-            Destroy(endPoint.gameObject);
+            endPoint.gameObject.SetActive(false);
+        }
+        
+        if (moveType == MoveType.Multi) {
+            foreach (Transform tra in transform.parent) {
+                if (tra == transform) continue;
+                tra.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -43,6 +52,10 @@ public class Target : MonoBehaviour
             
             case MoveType.Circular:
                 MoveCircle();
+                break;
+            
+            case MoveType.Multi:
+                MoveMulti();
                 break;
         }
     }
@@ -108,7 +121,21 @@ public class Target : MonoBehaviour
         }
 
         transform.position = newPos; 
-        
-        
+    }
+    
+    private void MoveMulti()
+    {
+        if (!Vector3.Equals(transform.position, endPos))
+        {
+            // Calculate the distance to the destination
+            float t = Mathf.Clamp01(speed * Time.deltaTime / Vector3.Distance(transform.position, endPos)); 
+            transform.position = Vector3.Lerp(transform.position, endPos, t);
+        } else {
+            multiCurrentIndex++;
+            if (multiCurrentIndex == transform.GetSiblingIndex()) multiCurrentIndex++;
+            if (multiCurrentIndex == transform.parent.childCount) multiCurrentIndex = -1;
+
+            endPos = multiCurrentIndex == -1 ? startPos : transform.parent.GetChild(multiCurrentIndex).position;
+        }
     }
 }

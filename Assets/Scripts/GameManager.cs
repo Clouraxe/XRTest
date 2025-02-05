@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
         // Keep track of targets
         foreach (Transform go in _targets) {
-            var t = go.GetComponent<Target>();
+            var t = go.GetComponentInChildren<Target>();
             t.OnPop += OnTargetPopped;
         }
 
