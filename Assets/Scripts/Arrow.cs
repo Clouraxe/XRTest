@@ -8,6 +8,10 @@ public class Arrow : MonoBehaviour
     private bool isFlying = false;
     
 
+    void Start()
+    {
+        GetComponent<TrailRenderer>().enabled = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -22,6 +26,7 @@ public class Arrow : MonoBehaviour
     public void SetFlying(bool val)
     {
         isFlying = val;
+        GetComponent<TrailRenderer>().enabled = val;
     }
 
     void OnCollisionEnter(Collision cols)
