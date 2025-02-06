@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 892536970489969862}
+  - {fileID: 2124510227647260576}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 0}
+  turnMultiplier: 1
 --- !u!95 &2433664933293440739
 Animator:
   serializedVersion: 7
@@ -302,6 +303,7 @@ GameObject:
   - component: {fileID: 1676530929588387666}
   - component: {fileID: 2477668473388837366}
   - component: {fileID: 6749766343373070578}
+  - component: {fileID: 2124510227647260576}
   - component: {fileID: 892536970489969862}
   m_Layer: 0
   m_Name: Flesh
@@ -378,6 +380,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2124510227647260576
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6512530832408312465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1735007, y: 0.3939864, z: 0.015613522}
+  m_Center: {x: -0.08543306, y: 0, z: 0.004251769}
 --- !u!64 &892536970489969862
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -388,14 +411,14 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
