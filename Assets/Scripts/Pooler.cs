@@ -61,5 +61,7 @@ public class Pooler<T> where T : MonoBehaviour
 
     public void Release(T obj) => _objPool.Release(obj);
 
+    public void Clear() => _objPool.Clear();
+
 
 }

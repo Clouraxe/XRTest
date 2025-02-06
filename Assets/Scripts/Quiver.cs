@@ -27,6 +27,7 @@ public class Quiver : MonoBehaviour
         _interactable.interactionManager.CancelInteractableSelection((IXRSelectInteractable)_interactable);
         
         grabbedArrow = Pooler<Arrow>.Instance.Get();
+        grabbedArrow.transform.position = selector.transform.position;
 
         _interactable.interactionManager.SelectEnter(selector, grabbedArrow.GetComponent<XRGrabInteractable>());
     }

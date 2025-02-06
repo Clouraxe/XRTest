@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour
             
             try {
                 SceneManager.LoadScene(nextLvlName);
+                Pooler<Arrow>.Instance.Clear();
             } 
             catch (Exception) 
             {
