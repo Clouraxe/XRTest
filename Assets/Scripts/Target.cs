@@ -72,7 +72,7 @@ public class Target : MonoBehaviour
 
     private void DestroyObj()
     {
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
     
     
