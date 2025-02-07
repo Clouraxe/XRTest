@@ -30,5 +30,5 @@ public class Item : MonoBehaviour
     }
 
 
-    private void DestroyObject() => Destroy(gameObject);
+    protected void DestroyObject() => Destroy(gameObject);
 }
