@@ -1,11 +1,10 @@
-using NUnit.Framework;
-using TMPro.EditorUtilities;
 using UnityEngine;
 public class BouncyBall : Item
 {
     [SerializeField] private int MAX_BOUNCES = 6;
     [SerializeField] private int DISAPPEAR_TIME = 3;
     [SerializeField] private Renderer _render;
+    [SerializeField] private ParticleSystem _particSys;
     private int bounces;
     private BallState state = BallState.Idle;
 
@@ -30,14 +29,13 @@ public class BouncyBall : Item
 
     void OnCollisionEnter(Collision collision)
     {
-       bounces++;
+        bounces++;
+        Vector3 contactPos = collision.contacts[0].point;
+        _particSys.transform.LookAt(contactPos);
+        _particSys.Play();
        if (bounces == MAX_BOUNCES) state = BallState.Despawning;
     }
     
-    
-    
-    
-
     private enum BallState {
         Idle,
         Despawning
