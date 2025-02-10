@@ -57,6 +57,7 @@ public class Boomerang : Item
         _rb.useGravity = isIdle;
         GetComponent<Animator>().SetBool("isSpinning", !isIdle);
         GetComponent<TrailRenderer>().enabled = !isIdle;
+        GetComponent<AudioSource>().enabled = !isIdle;
     }
 
     

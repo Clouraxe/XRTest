@@ -36,6 +36,7 @@ public class BouncyBall : Item
         _particSys.Play();
        if (bounces == MAX_BOUNCES) state = BallState.Despawning;
        else if (bounces < MAX_BOUNCES) transform.localScale *= _bounceScaleMultiplier;
+       GetComponent<AudioSource>().Play();
     }
     
     private enum BallState {
