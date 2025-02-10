@@ -56,7 +56,7 @@ public class Boomerang : Item
         bool isIdle = newState == BoomerangState.Idle;
         _rb.useGravity = isIdle;
         GetComponent<Animator>().SetBool("isSpinning", !isIdle);
-
+        GetComponent<TrailRenderer>().enabled = !isIdle;
     }
 
     
