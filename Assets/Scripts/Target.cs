@@ -67,6 +67,7 @@ public class Target : MonoBehaviour
         
         OnPop?.Invoke();
         GetComponent<MeshRenderer>().enabled = false;
+        if (transform.childCount > 0) transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
         Invoke(nameof(DestroyObj), 1f);
     }
 
