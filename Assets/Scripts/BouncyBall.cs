@@ -3,6 +3,7 @@ public class BouncyBall : Item
 {
     [SerializeField] private int MAX_BOUNCES = 6;
     [SerializeField] private int DISAPPEAR_TIME = 3;
+    [SerializeField] private float _bounceScaleMultiplier = 1;
     [SerializeField] private Renderer _render;
     [SerializeField] private ParticleSystem _particSys;
     private int bounces;
@@ -34,6 +35,7 @@ public class BouncyBall : Item
         _particSys.transform.LookAt(contactPos);
         _particSys.Play();
        if (bounces == MAX_BOUNCES) state = BallState.Despawning;
+       else transform.localScale *= _bounceScaleMultiplier;
     }
     
     private enum BallState {
