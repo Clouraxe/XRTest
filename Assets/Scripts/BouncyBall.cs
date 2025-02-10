@@ -35,7 +35,7 @@ public class BouncyBall : Item
         _particSys.transform.LookAt(contactPos);
         _particSys.Play();
        if (bounces == MAX_BOUNCES) state = BallState.Despawning;
-       else transform.localScale *= _bounceScaleMultiplier;
+       else if (bounces < MAX_BOUNCES) transform.localScale *= _bounceScaleMultiplier;
     }
     
     private enum BallState {
