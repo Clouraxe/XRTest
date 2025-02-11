@@ -4,10 +4,21 @@ public class Boomerang : Item
 {
     [SerializeField] private float turnMultiplier = 1f;
 
+    //Components
+    private AudioSource _audioSrc;
+    private TrailRenderer _trailRender;
+    private Animator _animator;
+
     private Vector3 throwTargetPos;
     private Vector3 throwSourcePos;
+    private BoomerangState _state = BoomerangState.Idle; //Do not directly set
 
-    private BoomerangState _state = BoomerangState.Idle;
+    protected override void OnStart()
+    {
+        _audioSrc = GetComponent<AudioSource>();
+        _trailRender = GetComponent<TrailRenderer>();
+        _animator = GetComponent<Animator>();
+    }
 
     public void OnBoomerangUnselected()
     {
@@ -20,18 +31,17 @@ public class Boomerang : Item
 
     private void FixedUpdate()
     {
-        switch (_state)
-        {
+        switch (_state) {
             case BoomerangState.FlyingTowardsTarget:
                 GravitateTowards(throwTargetPos);
 
-                if((throwTargetPos- transform.position).magnitude <= 1f)
+                if ((throwTargetPos - transform.position).magnitude <= 1f)
                     ChangeState(BoomerangState.ReturningToSender);
                 break;
             case BoomerangState.ReturningToSender:
                 GravitateTowards(throwSourcePos);
 
-                if((throwSourcePos - transform.position).magnitude <= 1f)
+                if ((throwSourcePos - transform.position).magnitude <= 1f)
                     ChangeState(BoomerangState.Idle);
                 break;
         }
@@ -48,19 +58,15 @@ public class Boomerang : Item
         _rb.linearVelocity = linearVelocity.normalized * linearVelocityMagnitude;
     }
 
-
-
     private void ChangeState(BoomerangState newState)
     {
         _state = newState;
         bool isIdle = newState == BoomerangState.Idle;
         _rb.useGravity = isIdle;
-        GetComponent<Animator>().SetBool("isSpinning", !isIdle);
-        GetComponent<TrailRenderer>().enabled = !isIdle;
-        GetComponent<AudioSource>().enabled = !isIdle;
+        _animator.SetBool("isSpinning", !isIdle);
+        _trailRender.enabled = !isIdle;
+        _audioSrc.enabled = !isIdle;
     }
-
-    
 
     private enum BoomerangState
     {

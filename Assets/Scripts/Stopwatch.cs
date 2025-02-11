@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Stopwatch : MonoBehaviour
 {
-
     private TextMeshPro text;
     private bool isRunning = false;
     private float time = 0;
@@ -18,26 +17,22 @@ public class Stopwatch : MonoBehaviour
     {
         if (isRunning) {
             time += Time.deltaTime;
-            int min = (int) time / 60;
-            int sec = (int) time % 60;
+            int min = (int)time / 60;
+            int sec = (int)time % 60;
             text.text = string.Format("{0:00}:{1:00}", min, sec);
         }
     }
 
-
-
-
-    public void StartTimer() {
+    public void StartTimer()
+    {
         isRunning = true;
     }
 
-    public void StopTimer() {
+    public void StopTimer()
+    {
         isRunning = false;
     }
 
-
     public string GetTimeString() => text.text;
-
-
 
 }

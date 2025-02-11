@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit.Utilities.Tweenables.Primitives;
 
 public class HandAnimationController : MonoBehaviour
 {
@@ -19,7 +16,6 @@ public class HandAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         anim.SetFloat("Trigger", triggerAction.action.ReadValue<float>());
         anim.SetFloat("Grip", gripAction.action.ReadValue<float>());
     }

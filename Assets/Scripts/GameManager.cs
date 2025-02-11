@@ -1,16 +1,14 @@
 using System;
 using System.Text.RegularExpressions;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-    private int targetsLeft = -1;
-
     [SerializeField] private Stopwatch _stopWatch;
     [SerializeField] private Transform _tools;
+
+    private int targetsLeft = -1;
 
     void Start()
     {
@@ -29,17 +27,10 @@ public class GameManager : MonoBehaviour
             if (obj.childCount < 1) continue;
 
             if (obj.GetChild(0).TryGetComponent<ItemPedestalContainer>(out var itemPedestalContainer)) {
-                    itemPedestalContainer.OnItemRemoved += StartTimer;
+                itemPedestalContainer.OnItemRemoved += StartTimer;
             }
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void OnTargetPopped()
     {
@@ -51,27 +42,24 @@ public class GameManager : MonoBehaviour
             Debug.Log($"You finished {SceneManager.GetActiveScene().name} in {_stopWatch.GetTimeString()}!");
             Invoke(nameof(PlayLevelCompleteSound), 1f);
             Invoke(nameof(GoToNextLevel), 3f);
-        } 
+        }
     }
 
     private void PlayLevelCompleteSound() => GetComponent<AudioSource>().Play();
 
     public void StartTimer() => _stopWatch.StartTimer();
 
-
     private void GoToNextLevel()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-            int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
-            string nextLvlName = "Level " + (lvl + 1);
-            
-            try {
-                SceneManager.LoadScene(nextLvlName);
-                Pooler<Arrow>.Instance.Clear();
-            } 
-            catch (Exception) 
-            {
-                Debug.Log("I guess we ran out bucko");
-            }
+        int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
+        string nextLvlName = "Level " + (lvl + 1);
+
+        try {
+            SceneManager.LoadScene(nextLvlName);
+            Pooler<Arrow>.Instance.Clear();
+        } catch (Exception) {
+            Debug.Log("I guess we ran out bucko");
+        }
     }
 }
