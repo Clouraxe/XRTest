@@ -140,4 +140,30 @@ public class Target : MonoBehaviour
         Circular,
         Multi
     }
+
+    void OnDrawGizmos()
+    {
+        switch (moveType) {
+            case MoveType.Multi:
+                Gizmos.color = Color.blue;
+                int count = transform.parent.childCount;
+                for (int i = 1; i < count; i++) {
+                    Transform transformPrevious = transform.parent.GetChild(i - 1);
+                    Transform transformCurrent = transform.parent.GetChild(i);
+
+                    Gizmos.DrawLine(transformPrevious.position, transformCurrent.position);
+                }
+
+                Gizmos.DrawLine(transform.parent.GetChild(0).position, transform.parent.GetChild(count - 1).position);
+                break;
+
+            case MoveType.Default:
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(transform.position, transform.parent.GetChild(1).position);
+                break;
+
+            default:
+                break;
+        }
+    }
 }
