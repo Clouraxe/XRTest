@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 1a8ac2d74773764459a79d717ae3ab9f
-AssetOrigin:
-  serializedVersion: 1
-  productId: 260726
-  packageName: Food FREE - Low Poly 3D Models Pack
-  packageVersion: 1.0
-  assetPath: Assets/ithappy/Food_FREE/Meshes/sausages_001.fbx
-  uploadId: 728363
+guid: 3145521aa3c3a7146be83099dd40fa17
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -21,7 +14,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 1
+    removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -40,7 +33,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -95,7 +88,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.099999994
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -106,7 +99,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 0
+  importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
