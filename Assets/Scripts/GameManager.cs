@@ -8,11 +8,10 @@ public class GameManager : MonoBehaviour
 {
 
     private int targetsLeft = -1;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     [SerializeField] private Stopwatch _stopWatch;
     [SerializeField] private Transform _tools;
-    [SerializeField] private Transform _targets;
+
     void Start()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
         targetsLeft = targets.Length;
 
         // Keep track of targets
-        foreach (Transform go in _targets) {
+        foreach (GameObject go in targets) {
             var t = go.GetComponentInChildren<Target>();
             t.OnPop += OnTargetPopped;
         }
@@ -45,8 +44,7 @@ public class GameManager : MonoBehaviour
     public void OnTargetPopped()
     {
         Debug.Log("pop goes the weasel");
-        targetsLeft = _targets.childCount - 1; // minus one because the targets doesn't get destroyed instantly.
-        
+        targetsLeft--; // minus one because the targets doesn't get destroyed instantly.
         // Finished the level!
         if (targetsLeft == 0) {
             _stopWatch.StopTimer();
