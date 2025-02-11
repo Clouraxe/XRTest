@@ -13,11 +13,11 @@ public class Arrow : MonoBehaviour
 
     void Start()
     {
-        _trailRender.enabled = false;
-
         _audioSrc = GetComponent<AudioSource>();
-        _particleSys = GetComponent<ParticleSystem>();
+        _particleSys = GetComponentInChildren<ParticleSystem>();
         _trailRender = GetComponent<TrailRenderer>();
+
+        _trailRender.enabled = false;
     }
 
     // Update is called once per frame
