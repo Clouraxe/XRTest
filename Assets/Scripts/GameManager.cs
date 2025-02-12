@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void StartTimer() => _stopWatch.StartTimer();
 
-    private void GoToNextLevel()
+    public void GoToNextLevel()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
@@ -61,5 +61,11 @@ public class GameManager : MonoBehaviour
         } catch (Exception) {
             Debug.Log("I guess we ran out bucko");
         }
+    }
+    
+    public void RestartLevel()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 }
