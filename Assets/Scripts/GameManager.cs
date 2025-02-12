@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Stopwatch _stopWatch;
     [SerializeField] private Transform _tools;
+    [SerializeField] private Transform _levelEndCanvas;
 
     private int targetsLeft = -1;
 
@@ -40,14 +42,21 @@ public class GameManager : MonoBehaviour
         if (targetsLeft == 0) {
             _stopWatch.StopTimer();
             Debug.Log($"You finished {SceneManager.GetActiveScene().name} in {_stopWatch.GetTimeString()}!");
-            Invoke(nameof(PlayLevelCompleteSound), 1f);
-            Invoke(nameof(GoToNextLevel), 3f);
+            Invoke(nameof(OnLevelCompleted), 1f);
         }
     }
 
     private void PlayLevelCompleteSound() => GetComponent<AudioSource>().Play();
 
     public void StartTimer() => _stopWatch.StartTimer();
+
+    public void OnLevelCompleted()
+    {
+        PlayLevelCompleteSound();
+        TextMeshPro textTMP = _levelEndCanvas.GetComponentInChildren<TextMeshPro>();
+        textTMP.text = textTMP.text.Replace("{time}", _stopWatch.GetTimeString()); 
+        _levelEndCanvas.gameObject.SetActive(true);
+    }
 
     public void GoToNextLevel()
     {
@@ -60,6 +69,8 @@ public class GameManager : MonoBehaviour
             Pooler<Arrow>.Instance.Clear();
         } catch (Exception) {
             Debug.Log("I guess we ran out bucko");
+            nextLvlName = "Level 1";
+            SceneManager.LoadScene(nextLvlName);
         }
     }
     

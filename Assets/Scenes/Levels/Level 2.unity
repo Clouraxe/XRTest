@@ -750,6 +750,11 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
     m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!224 &327135780 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 662540806328391180, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+  m_PrefabInstance: {fileID: 2230593004138214299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &328149013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2956,6 +2961,7 @@ Transform:
   - {fileID: 1546264359}
   - {fileID: 251715883}
   - {fileID: 1822239654}
+  - {fileID: 327135780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1431473700
@@ -9820,7 +9826,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1426966737}
     m_Modifications:
     - target: {fileID: 662540806328391180, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_Pivot.x
@@ -9872,15 +9878,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 662540806328391180, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 662540806328391180, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 662540806328391180, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 662540806328391180, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9905,6 +9911,14 @@ PrefabInstance:
     - target: {fileID: 2077568839758573329, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_Name
       value: Level End Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077568839758573329, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011282335572952847, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_text
+      value: You finished level 2 in {time}!
       objectReference: {fileID: 0}
     - target: {fileID: 6199363539739586556, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_Camera
@@ -10100,4 +10114,3 @@ SceneRoots:
   - {fileID: 1338478357}
   - {fileID: 468005816}
   - {fileID: 1852926636}
-  - {fileID: 2230593004138214299}
