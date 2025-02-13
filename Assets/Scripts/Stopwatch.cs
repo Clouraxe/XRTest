@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -34,5 +35,11 @@ public class Stopwatch : MonoBehaviour
     }
 
     public string GetTimeString() => text.text;
+
+    public int GetMilliSeconds(int digits = 2)
+    {
+        int tens = (int)Mathf.Pow(10, digits);
+        return (int)(time * tens) % tens;
+    }
 
 }

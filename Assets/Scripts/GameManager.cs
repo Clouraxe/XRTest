@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         // Finished the level!
         if (targetsLeft == 0) {
             _stopWatch.StopTimer();
-            Debug.Log($"You finished {SceneManager.GetActiveScene().name} in {_stopWatch.GetTimeString()}!");
+            Debug.Log($"You finished {SceneManager.GetActiveScene().name} in {_stopWatch.GetTimeString()}:{_stopWatch.GetMilliSeconds()}!");
             Invoke(nameof(OnLevelCompleted), 1f);
         }
     }
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         PlayLevelCompleteSound();
         TextMeshProUGUI textTMP = _levelEndCanvas.GetComponentInChildren<TextMeshProUGUI>();
-        textTMP.text = textTMP.text.Replace("{time}", _stopWatch.GetTimeString());
+        textTMP.text = textTMP.text.Replace("{time}", _stopWatch.GetTimeString() + "<size=60%>" + _stopWatch.GetMilliSeconds() + "</size>");
         _levelEndCanvas.gameObject.SetActive(true);
     }
 
