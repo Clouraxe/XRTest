@@ -996,6 +996,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level End Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2077568839758573329, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5160901050736064114, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_text
       value: Start Over
@@ -5193,6 +5197,10 @@ PrefabInstance:
     - target: {fileID: 1178791450436251564, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_RequestedTrackingOriginMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1316937940875351605, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
@@ -11524,6 +11532,10 @@ PrefabInstance:
       propertyPath: _stopWatch
       value: 
       objectReference: {fileID: 251715884}
+    - target: {fileID: 1923684373721715907, guid: 8dca9d4ef514b954f91ac6c72c6da8b1, type: 3}
+      propertyPath: _levelEndCanvas
+      value: 
+      objectReference: {fileID: 261208621}
     - target: {fileID: 2833488335394948425, guid: 8dca9d4ef514b954f91ac6c72c6da8b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.10539986
