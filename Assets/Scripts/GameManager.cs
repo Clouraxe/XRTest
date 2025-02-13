@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour
     public void OnLevelCompleted()
     {
         PlayLevelCompleteSound();
-        TextMeshPro textTMP = _levelEndCanvas.GetComponentInChildren<TextMeshPro>();
-        textTMP.text = textTMP.text.Replace("{time}", _stopWatch.GetTimeString()); 
+        TextMeshProUGUI textTMP = _levelEndCanvas.GetComponentInChildren<TextMeshProUGUI>();
+        textTMP.text = textTMP.text.Replace("{time}", _stopWatch.GetTimeString());
         _levelEndCanvas.gameObject.SetActive(true);
     }
 
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(nextLvlName);
         }
     }
-    
+
     public void RestartLevel()
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
