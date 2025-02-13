@@ -64,14 +64,11 @@ public class GameManager : MonoBehaviour
         int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
         string nextLvlName = "Level " + (lvl + 1);
 
-        try {
-            SceneManager.LoadScene(nextLvlName);
-            Pooler<Arrow>.Instance.Clear();
-        } catch (Exception) {
-            Debug.Log("I guess we ran out bucko");
-            nextLvlName = "Level 1";
-            SceneManager.LoadScene(nextLvlName);
-        }
+        Pooler<Arrow>.Instance?.Clear();
+
+        var scene = SceneManager.GetSceneByName(nextLvlName);
+        if (scene.IsValid()) SceneManager.LoadScene(nextLvlName);
+        else SceneManager.LoadScene(0);
     }
 
     public void RestartLevel()

@@ -1002,7 +1002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5160901050736064114, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_text
-      value: Start Over
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 5160901050736064114, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_fontSize
@@ -1035,6 +1035,22 @@ PrefabInstance:
     - target: {fileID: 7352284897224435706, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 25.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651804666082456330, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1918906283}
+    - target: {fileID: 7651804666082456330, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToNextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456852700137460314, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1918906283}
+    - target: {fileID: 8456852700137460314, guid: 0a9a20b95a782bc4493de0c8a785254a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10841,6 +10857,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: 3145521aa3c3a7146be83099dd40fa17, type: 3}
+--- !u!114 &1918906283 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1923684373721715907, guid: 8dca9d4ef514b954f91ac6c72c6da8b1, type: 3}
+  m_PrefabInstance: {fileID: 668775680665694626}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d784f522cc9d7d440957ff0956a43e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1940934874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3145521aa3c3a7146be83099dd40fa17, type: 3}
