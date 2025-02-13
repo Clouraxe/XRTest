@@ -1,6 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 using TMPro;
+using Unity.Tutorials.Core.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -61,13 +62,14 @@ public class GameManager : MonoBehaviour
     public void GoToNextLevel()
     {
         string sceneName = SceneManager.GetActiveScene().name;
+        int buildIndex = SceneManager.GetActiveScene().buildIndex;
         int lvl = int.Parse(Regex.Match(sceneName, @"\d+").Value);
         string nextLvlName = "Level " + (lvl + 1);
 
         Pooler<Arrow>.Instance?.Clear();
 
-        var scene = SceneManager.GetSceneByName(nextLvlName);
-        if (scene.IsValid()) SceneManager.LoadScene(nextLvlName);
+        bool nextAvailable = !SceneUtility.GetScenePathByBuildIndex(buildIndex + 1).IsNullOrEmpty();
+        if (nextAvailable) SceneManager.LoadScene(nextLvlName);
         else SceneManager.LoadScene(0);
     }
 
