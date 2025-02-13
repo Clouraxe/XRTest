@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 4924143142665124294}
-  MAX_BOUNCES: 6
-  DISAPPEAR_TIME: 3
+  _maxBounces: 6
+  _disappearTime: 3
   _bounceScaleMultiplier: 1
   _render: {fileID: 6991173744239146370}
   _particSys: {fileID: 5765560540213557062}
@@ -236,7 +236,7 @@ AudioSource:
   m_GameObject: {fileID: 506580621643207186}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8695421871383644176, guid: ec452ab52f1494a48938c7d919b8d623, type: 2}
   m_audioClip: {fileID: 8300000, guid: 99f0a5e8b5b08cc4c936e32c4f56af81, type: 3}
   m_Resource: {fileID: 8300000, guid: 99f0a5e8b5b08cc4c936e32c4f56af81, type: 3}
   m_PlayOnAwake: 0

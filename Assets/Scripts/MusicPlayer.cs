@@ -26,7 +26,5 @@ public class MusicPlayer : MonoBehaviour
         } else if (next.name.ToLower().Contains("level 1") && !_music.isPlaying) {
             _music.Play();
         }
-
-
     }
 }

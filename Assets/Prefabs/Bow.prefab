@@ -382,6 +382,7 @@ MonoBehaviour:
   _grabInteract: {fileID: 5577460126644950516}
   _arrowPrefab: {fileID: 4091496197757549840, guid: 151c64c103aed8048a3f20e2d922aed1, type: 3}
   _releaseSound: {fileID: 8300000, guid: 642950fe58b133d47a3c43267fb25765, type: 3}
+  _instantBowPull: 1
 --- !u!54 &375657284142584612
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -590,7 +591,7 @@ AudioSource:
   m_GameObject: {fileID: 2520545957050825006}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8695421871383644176, guid: ec452ab52f1494a48938c7d919b8d623, type: 2}
   m_audioClip: {fileID: 8300000, guid: 642950fe58b133d47a3c43267fb25765, type: 3}
   m_Resource: {fileID: 8300000, guid: 642950fe58b133d47a3c43267fb25765, type: 3}
   m_PlayOnAwake: 0
